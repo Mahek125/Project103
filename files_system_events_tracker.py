@@ -21,7 +21,21 @@ class FileEventHandler(FileSystemEventHandler):
         print(f"{event.src_path} has been modified")
 
     def on_moved(self, event):
-        print(f"{event_src.path} has been moved or renamed")
+        print(f"{event.src.path} has been moved or renamed")
+
+# Initialize Event Handler Class
+event_handler = FileEventHandler()
+
+
+# Initialize Observer
+observer = Observer()
+
+# Schedule the Observer
+observer.schedule(event_handler, from_dir, recursive=True)
+
+
+# Start the Observer
+observer.start()
 
 try:
     while True:
@@ -29,4 +43,4 @@ try:
         print("running...")
 except KeyboardInterrupt:
     print("stopped")
-    observer.stop()
+    Observer.stop()
